@@ -21,7 +21,7 @@
         <song-list :songs="songs" class="song-list" :options="[ 'download' ]" />
         <empty-page
             v-if="songs && !songs.length"
-            img="peep-34.png"
+            img="/storage/defaults/images/banner.jpeg"
             :headline="$t('No purchases yet!')"
             :sub="$t('This page is empty.')"
         />

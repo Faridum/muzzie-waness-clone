@@ -162,6 +162,9 @@ const defaultThemes = {
 } 
 
 const opts = {
+
+    rtl: document.documentElement.dir === 'rtl',
+
     theme: {
         themes: defaultThemes
     },
@@ -322,7 +325,11 @@ const opts = {
         }
     }
 };
-const vuetify = new Vuetify()
+const vuetify = new Vuetify(opts)
+
+export const setVuetifyRtl = (rtl) => {
+    vuetify.framework.rtl = rtl;
+};
 
 Vue.use(Vuetify);
 
@@ -331,4 +338,4 @@ Vue.use(TiptapVuetifyPlugin, {
     iconsGroup: 'mdiSvg'
 })
 
-export default new Vuetify(opts);
+export default vuetify;

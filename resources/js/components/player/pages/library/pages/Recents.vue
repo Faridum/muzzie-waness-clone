@@ -23,7 +23,7 @@
         ]" />
         <empty-page
             v-if="songs && !songs.length"
-            img="peep-34.png"
+            img="/storage/defaults/images/banner.jpeg"
             :headline="$t('Empty!')"
             :sub="$t('Your history is empty.')"
         />

@@ -179,15 +179,6 @@
                                                         type="number"
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-col cols="12">
-                                                    <v-switch
-                                                        label="Highlight"
-                                                        messages="Show on the live radio section on the right-sidebar"
-                                                        v-model="
-                                                            editedRadioStation.highlight
-                                                        "
-                                                    ></v-switch>
-                                                </v-col>
                                             </v-row>
                                         </div>
                                     </div>
@@ -309,10 +300,6 @@ export default {
             formData.append(
                 "statsSource",
                 this.editedRadioStation.statsSource || ""
-            );
-            formData.append(
-                "highlight",
-                this.editedRadioStation.highlight ? 1 : 0
             );
             formData.append("proxy", this.editedRadioStation.proxy ? 1 : 0);
             formData.append("interval", this.editedRadioStation.interval);

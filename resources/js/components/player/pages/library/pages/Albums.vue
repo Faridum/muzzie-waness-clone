@@ -8,7 +8,7 @@
           </div>
       </div>
       <album-list :albums="albums" ></album-list>
-      <empty-page v-if="albums && !albums.length" img="peep-34.png" :headline="$t('No likes yet!')" :sub="$t('This page is empty.')" />
+      <empty-page v-if="albums && !albums.length" img="/storage/defaults/images/banner.jpeg" :headline="$t('No likes yet!')" :sub="$t('This page is empty.')" />
   </div>
 </template>
 <script>

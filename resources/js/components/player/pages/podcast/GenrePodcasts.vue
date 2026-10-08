@@ -34,7 +34,7 @@
                 <empty-page
                     :headline="$t('No Podcasts!')"
                     :sub="$t('This genre has no podcasts yet.')"
-                    img="peep-34.png"
+                    img="/storage/defaults/images/banner.jpeg"
                 />
             </template>
         </div>

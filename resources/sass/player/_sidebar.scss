@@ -1,11 +1,12 @@
 #player-sidebar {
     width: 6.5em;
+    inset-inline-start: 0;
     top: 0;
     bottom: 0;
     z-index: 56;
     position: fixed;
     display: flex;
-    border-right: $thin-border;
+    border-inline-end: $thin-border;
     flex-direction: column;
     div.hl {
         width: 80%;
@@ -130,11 +131,23 @@
     }
     @include sm {
         top: unset;
-        left: 0;
-        right: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
         width: unset !important;
         padding: 0 !important;
         z-index: 1001;
+    }
+}
+
+.home-layout #player-sidebar {
+    #sidebar-wrapper {
+        background-color: #f27895 !important;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .sidebar-item {
+        color: #17305d;
     }
 }
 

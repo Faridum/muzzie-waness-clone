@@ -2,13 +2,13 @@
     <main
         @click="hideWindows"
         id="player-container"
-        :class="this.$vuetify.theme.dark ? 'player--dark' : 'player--light'"
+        :class="[
+            this.$vuetify.theme.dark ? 'player--dark' : 'player--light',
+            { 'home-layout': $route.path === '/home' }
+        ]"
     >
         <Sidebar :installButton="installButton"></Sidebar>
-        <Navbar
-            @toggle="rightSidebar = !rightSidebar"
-            @width="rightSidebarWidth = $event"
-        ></Navbar>
+        <Navbar />
         <div class="player-container__content">
             <div id="player-container__content__main">
                 <add-to-playlist
@@ -21,18 +21,6 @@
                     ></router-view>
                 </v-container>
             </div>
-            <RightSidebar
-                @width="rightSidebarWidth = $event"
-                @toggle="rightSidebar = !rightSidebar"
-                :style="{
-                    transform:
-                        windowWidth < 900
-                            ? 'translateX(' +
-                              (rightSidebar ? '0px' : '100%') +
-                              ')'
-                            : 'translateX(0)'
-                }"
-            ></RightSidebar>
         </div>
         <!--  Global dialogs -->
         <v-dialog v-model="$store.state.showSharingDialog" max-width="700px">
@@ -76,14 +64,12 @@
 <script>
 import Navbar from "./Navbar.vue";
 import Sidebar from "./Sidebar.vue";
-import RightSidebar from "./RightSidebar.vue";
 import addToPlaylist from "../../dialogs/Playlists";
 import ShareDialog from "../../dialogs/Share";
 export default {
     components: {
         Navbar,
         Sidebar,
-        RightSidebar,
         addToPlaylist,
         ShareDialog,
         Checkout: () => import("../../dialogs/selling/Checkout.vue"),
@@ -131,8 +117,6 @@ export default {
     },
     data() {
         return {
-            rightSidebar: false,
-            rightSidebarWidth: 0,
             installButton: false
         };
     },

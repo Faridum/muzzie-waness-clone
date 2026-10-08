@@ -1,5 +1,9 @@
 <template>
-    <div class="content-page" v-if="page && page !== '404'">
+    <div
+        class="content-page"
+        :class="{ 'home-page': $route.path === '/home' }"
+        v-if="page && page !== '404'"
+    >
         <template v-if="page.blank">
             <div class="content-container">
                 <div class="page-content" v-html="page.content"></div>
@@ -18,6 +22,12 @@
                         {{ $t(page.description) }}
                     </div>
                 </div>
+            </div>
+            <div class="home-page__banner" v-if="$route.path === '/home'">
+                <img
+                    src="/storage/defaults/images/banner.jpeg"
+                    alt=""
+                />
             </div>
             <template v-if="$store.getters.getSettings.enableAds">
                 <div
@@ -71,7 +81,11 @@
                 </template>
                 <template v-else>
                     <empty-page
-                        img="peep-34.png"
+                        :img="
+                            $route.path === '/home'
+                                ? null
+                                : '/storage/defaults/images/banner.jpeg'
+                        "
                         :headline="$t('No Content!')"
                         :sub="$t('There is no content to be displayed.')"
                     ></empty-page>
@@ -196,8 +210,40 @@ export default {
 @import "../../../../sass/player/pages/404-page";
 @import "../../../../sass/variables";
 .icon-header {
+    transform: translateX(-10.5rem);
+
     .cover {
         background: linear-gradient(45deg, $color-secondary, $color-primary);
+    }
+}
+
+.home-page {
+    .icon-header {
+        width: calc(100% - 2rem);
+        max-width: 1296px;
+        margin: 2.5rem auto 2.8rem;
+        transform: none;
+    }
+
+    .home-page__banner {
+        width: calc(100% - 2rem);
+        max-width: 1296px;
+        aspect-ratio: 2.13 / 1;
+        margin: 0 auto 2.5rem;
+        overflow: hidden;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    #main-content {
+        width: calc(100% - 2rem);
+        max-width: 1296px;
+        margin: 0 auto;
     }
 }
 

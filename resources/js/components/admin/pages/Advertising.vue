@@ -92,46 +92,6 @@
                             </v-container>
                         </v-card>
                     </v-col>
-                    <v-col cols="12">
-                        <v-card outlined>
-                            <v-card-title>
-                                <v-icon color="primary" x-large></v-icon>
-                                Square Ad
-                                <v-spacer></v-spacer>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    class="mx-2"
-                                    fab
-                                    dark
-                                    x-small
-                                    color="info"
-                                    @click="square_ad.showInfoDialog = true"
-                                >
-                                    <v-icon dark>
-                                        $vuetify.icons.help
-                                    </v-icon>
-                                </v-btn>
-                            </v-card-title>
-                            <v-container>
-                                <v-row>
-                                    <v-col cols="12" class="p-2">
-                                        <v-textarea
-                                            :label="$t('Ad code')"
-                                            outlined
-                                            v-model="square_ad.code"
-                                        ></v-textarea>
-                                        <vuetify-select
-                                            :label="$t('position')"
-                                            :items="square_ad.positions"
-                                            v-model="square_ad.position"
-                                            item-text="text"
-                                            item-value="value"
-                                        ></vuetify-select>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </v-card>
-                    </v-col>
                 </v-row>
             </v-container>
         </v-card>
@@ -140,15 +100,6 @@
                 <v-img
                     src="/storage/defaults/images/ads/ad_leaderboard_preview.png"
                     alt="ad_leaderboard_preview"
-                    width="100%"
-                />
-            </v-card>
-        </v-dialog>
-        <v-dialog v-model="square_ad.showInfoDialog" max-width="950">
-            <v-card>
-                <v-img
-                    src="/storage/defaults/images/ads/ad_square_preview.png"
-                    alt="ad_square_preview"
                     width="100%"
                 />
             </v-card>
@@ -180,24 +131,6 @@ export default {
                     }
                 ],
                 showInfoDialog: false
-            },
-            square_ad: {
-                code: this.parseAd(this.$store.getters.getSettings.square_ad)
-                    .code,
-                position: this.parseAd(
-                    this.$store.getters.getSettings.square_ad
-                ).position,
-                positions: [
-                    {
-                        text: this.$t("Top of the right-sidebar"),
-                        value: "trs"
-                    },
-                    {
-                        text: this.$t("Bottom of right-sidebar"),
-                        value: "brs"
-                    }
-                ],
-                showInfoDialog: false
             }
         };
     },
@@ -209,15 +142,10 @@ export default {
                 code: this.rect_ad.code,
                 position: this.rect_ad.position
             };
-            const square_ad = {
-                code: this.square_ad.code,
-                position: this.square_ad.position
-            };
             axios
                 .post("/api/admin/save-ads", {
                     enableAds,
-                    rect_ad,
-                    square_ad
+                    rect_ad
                 })
                 .then(() => {
                     this.$notify({

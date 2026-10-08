@@ -140,9 +140,6 @@
               </v-card>
             </v-menu>
           </div>
-          <div class="friends" @click="$emit('toggle')">
-            <v-icon class="mr-3" small>$vuetify.icons.account-group</v-icon>
-          </div>
         </div>
         <User></User>
       </div>

@@ -3,10 +3,11 @@
         <div class="wrapper">
             <div class="img-container" v-if="img">
                 <img
-                    :src="'/storage/defaults/images/empty_page/' + img"
+                    :src="imageSrc"
                     alt=""
-                    width="200px"
-                    height="266px"
+                    :width="isBannerImage ? null : 200"
+                    :height="isBannerImage ? null : 266"
+                    :class="isBannerImage ? 'banner-image d-block' : ''"
                 />
             </div>
             <div>
@@ -25,7 +26,17 @@
 </template>
 <script>
 export default {
-    props: ["img", "headline", "sub"]
+    props: ["img", "headline", "sub"],
+    computed: {
+        isBannerImage() {
+            return this.img === "/storage/defaults/images/banner.jpeg";
+        },
+        imageSrc() {
+            return this.img.startsWith("/")
+                ? this.img
+                : "/storage/defaults/images/empty_page/" + this.img;
+        }
+    }
 };
 </script>
 
@@ -45,6 +56,11 @@ export default {
         justify-content: center;
         img {
             max-width: 250px;
+        }
+        img.banner-image {
+            width: auto;
+            height: auto;
+            max-width: none;
         }
     }
     .headline {

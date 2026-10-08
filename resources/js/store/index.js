@@ -1,4 +1,5 @@
 import Vue from "vue";
+import { setVuetifyRtl } from "../plugins/vuetify";
 import Vuex from "vuex";
 
 import { i18n } from "../i18n-setup.js";
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         purchase
     },
     state: {
+        rtl: document.documentElement.dir === "rtl",
         user: null,
         artist: null,
         messages: {},
@@ -131,6 +133,9 @@ export default new Vuex.Store({
         setCurrentLang(state, currentLang) {
             state.currentLang = currentLang;
         },
+        setRtl(state, rtl) {
+            state.rtl = rtl;
+        },
         setLikedSongs(state, songs) {
             state.likedSongs = songs.filter(song => song);
         },
@@ -223,6 +228,9 @@ export default new Vuex.Store({
         },
         getCurrentLang(state) {
             return state.currentLang;
+        },
+        getRtl(state) {
+            return state.rtl;
         },
         getAds(state) {
             return state.ads;
@@ -616,6 +624,13 @@ export default new Vuex.Store({
         },
         updateLang(context, lang) {
             context.dispatch('fetchMessages', lang.locale).then(() => {
+                const localeBase = lang.locale.toLowerCase().replace('_', '-').split('-')[0];
+                const isRtl = ['ar', 'fa', 'he', 'ur'].includes(localeBase);
+                document.documentElement.lang = lang.locale;
+                document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
+                context.commit('setRtl', isRtl);
+                setVuetifyRtl(isRtl);
+
                 context.commit('setCurrentLang', lang)
                 localStorage.setItem('pref-locale', lang.locale)
                 context.commit('setChooseLangDialog', false)

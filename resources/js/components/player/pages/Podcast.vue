@@ -199,7 +199,7 @@
                 v-else
                 :headline="$t('No Episodes!')"
                 :sub="$t('Looks like this podcast has no episodes yet.')"
-                img="peep-34.png"
+                img="/storage/defaults/images/banner.jpeg"
             />
         </div>
     </div>

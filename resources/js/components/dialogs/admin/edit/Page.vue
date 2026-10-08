@@ -53,20 +53,13 @@
                                 outlined
                             ></v-switch
                         ></v-col>
-                        <v-col cols="6" v-if="page.isEditable"
-                            ><v-switch
-                                v-model="page.showLinkOnTheRightSidebar"
-                                :label="$t('Show link on the right-sidebar')"
-                                outlined
-                            ></v-switch
-                        ></v-col>
                     </v-row>
                 </div>
                 <template v-if="page.blank">
                     <TextEditor @content="page.content = $event" :initialContent="page.content" placeholder="Add your page content here" />
                 </template>
                 <template v-else>
-                                        <v-row>
+                    <v-row>
                         <v-col>
                             <v-btn
                                 class="info my-3"
@@ -335,7 +328,6 @@ export default {
             formData.append("path", this.page.path || "");
             formData.append("content", this.page.content || "");
             formData.append("blank", this.page.blank ? 1 : 0);
-            formData.append("showLinkOnTheRightSidebar", this.page.showLinkOnTheRightSidebar ? 1 : 0);
             formData.append(
                 "sections",
                 JSON.stringify(this.page.sections) || ""
@@ -387,7 +379,6 @@ export default {
                 nb_labels: 6,
                 content: [null, null, null, null, null],
                 rank: this.page.sections.length,
-                showLinkOnTheRightSidebar: false,
                 endpoint: null,
                 id: Math.round(Math.random() * 100)
             };

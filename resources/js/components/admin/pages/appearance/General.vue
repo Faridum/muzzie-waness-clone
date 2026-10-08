@@ -58,9 +58,6 @@
                             + $t('The theme switcher will show on the navbar.')
                   "></v-switch>
                 </v-col>
-                <v-col cols="12" sm="6">
-                  <v-switch :label="$t('Hide Right-sidebar')" v-model="$store.getters.getSettings.hideRightSidebar"></v-switch>
-                </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12">
@@ -230,10 +227,6 @@ export default {
       formData.append(
         "playerLanding",
         this.$store.getters.getSettings.playerLanding
-      );
-      formData.append(
-        "hideRightSidebar",
-        this.$store.getters.getSettings.hideRightSidebar ? 1 : 0
       );
       formData.append(
         "enableThemeSwitcher",

@@ -44,7 +44,7 @@
         " />
         <empty-page
             v-if="songs && !songs.length"
-            img="peep-34.png"
+            img="/storage/defaults/images/banner.jpeg"
             :headline="$t('No songs yet!')"
             :sub="$t('This page is empty.')"
         />

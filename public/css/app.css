@@ -2120,7 +2120,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1em;
+  margin-left: 1em;
 }
 
 .content-page .icon-header .cover img {

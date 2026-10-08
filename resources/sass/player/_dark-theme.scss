@@ -13,48 +13,6 @@
         color: $dark-theme-text-color;
         background-color: $dark-theme-bg-color;
     }
-    #right-sidebar-container {
-        background-color: $dark-theme-panel-bg-color;
-        .right-sidebar-toggle {
-            background: $dark-theme-panel-bg-color;
-        }
-        .friends-container {
-            &__main {
-                background-color: $dark-theme-bg-color;
-            }
-            .friends-toggle-button {
-                background-color: $dark-theme-panel-bg-color;
-            }
-            .card-title-medium {
-                padding: 0 0.7em;
-                margin-bottom: 0.6em;
-                color: $dark-theme-text-color;
-            }
-            .friends-list {
-                color: $dark-theme-text-color;
-                ul {
-                    li {
-                        .top-side {
-                            .infos {
-                                .name-container {
-                                    .name {
-                                        color: $dark-theme-text-color;
-                                    }
-                                }
-                            }
-                        }
-                        .bottom-side {
-                            .options {
-                                & > button {
-                                    color: $dark-theme-text-color;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
     .content-page {
         .icon-header {
             color: $dark-theme-text-color;
