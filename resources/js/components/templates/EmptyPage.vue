@@ -5,9 +5,9 @@
                 <img
                     :src="imageSrc"
                     alt=""
-                    :width="isBannerImage ? null : 200"
-                    :height="isBannerImage ? null : 266"
-                    :class="isBannerImage ? 'banner-image d-block' : ''"
+                    :width="naturalSize ? null : 200"
+                    :height="naturalSize ? null : 266"
+                    :class="{ 'natural-image': naturalSize }"
                 />
             </div>
             <div>
@@ -26,11 +26,16 @@
 </template>
 <script>
 export default {
-    props: ["img", "headline", "sub"],
+    props: {
+        img: String,
+        headline: String,
+        sub: String,
+        naturalSize: {
+            type: Boolean,
+            default: false
+        }
+    },
     computed: {
-        isBannerImage() {
-            return this.img === "/storage/defaults/images/banner.jpeg";
-        },
         imageSrc() {
             return this.img.startsWith("/")
                 ? this.img
@@ -57,7 +62,7 @@ export default {
         img {
             max-width: 250px;
         }
-        img.banner-image {
+        img.natural-image {
             width: auto;
             height: auto;
             max-width: none;

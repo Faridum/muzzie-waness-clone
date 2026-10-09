@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/chunks/" + {"0":"fb3a1a8981552e73ad82","1":"2be470b8d3299efd50e2","2":"93f2bb5ec1c6328c0534","3":"dfd5bc00c25114e559fc","4":"147db08c7fb8bb3b5d57","5":"3b00706cebd079ed17e1","6":"eaab423876ac9ce28331","7":"50e798fa0b17ea15eda8","8":"7accb7a6d226c0d30de6","9":"bc4c27af51160a6e1da6","10":"35b5920f2c2ad133899c","11":"8d33ac00f08c8f23534e","12":"6d83153e23389d15c8cb","13":"19b4905df72673583cb1","14":"efd039409cc0facbfa4e","15":"bf069a1710c22bf89f45","16":"39fcfd4e8f91d1ac5218","17":"587f773ede74f9e4c5da","18":"e9203180144362ec1b98","19":"8885f8ec499ca0bde20a","20":"be0f6396aca14e7eb7ff","vendors~admin~artist":"20520b14338b5afdaca5","admin~artist~player":"8e19a0feaf98e5ec5a16","admin~artist":"854faf8796a6a0e2b3fa","artist":"b25b4787038390a78933","admin~player":"3bd0a2ac0df5186decfe","landing~player":"531337aa4a2860fe1021","player":"65271baf3c064b894d58","auth":"f700df51da00ec3d6359","browse":"09c6f24e9fd62aca6c1e","landing":"7bd917c6551aa0b87317","library":"f64c3181f0047224d7ad","podcasts":"cdcf52c72815f9571833","subscription":"3bf8b71530a578c617f9","admin":"8ce103c62b1cd5b84ffa","textEditor":"d61c78d996f943c61f3c"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/chunks/" + {"0":"fb3a1a8981552e73ad82","1":"2be470b8d3299efd50e2","2":"93f2bb5ec1c6328c0534","3":"dfd5bc00c25114e559fc","4":"147db08c7fb8bb3b5d57","5":"3b00706cebd079ed17e1","6":"eaab423876ac9ce28331","7":"50e798fa0b17ea15eda8","8":"7accb7a6d226c0d30de6","9":"bc4c27af51160a6e1da6","10":"35b5920f2c2ad133899c","11":"8d33ac00f08c8f23534e","12":"6d83153e23389d15c8cb","13":"19b4905df72673583cb1","14":"efd039409cc0facbfa4e","15":"bf069a1710c22bf89f45","16":"39fcfd4e8f91d1ac5218","17":"587f773ede74f9e4c5da","18":"e9203180144362ec1b98","19":"8885f8ec499ca0bde20a","20":"be0f6396aca14e7eb7ff","vendors~admin~artist":"20520b14338b5afdaca5","admin~artist~player":"8e19a0feaf98e5ec5a16","admin~artist":"854faf8796a6a0e2b3fa","artist":"b25b4787038390a78933","admin~player":"3bd0a2ac0df5186decfe","landing~player":"531337aa4a2860fe1021","player":"9a435586e3333005f842","auth":"f700df51da00ec3d6359","browse":"09c6f24e9fd62aca6c1e","landing":"7bd917c6551aa0b87317","library":"e08caaf87c9499b34db3","podcasts":"b92573ce27d50efeea7f","subscription":"3bf8b71530a578c617f9","admin":"8ce103c62b1cd5b84ffa","textEditor":"d61c78d996f943c61f3c"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -17362,16 +17362,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["genres"]
 });
@@ -19005,11 +18995,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["img", "headline", "sub"],
+  props: {
+    img: String,
+    headline: String,
+    sub: String,
+    naturalSize: {
+      type: Boolean,
+      "default": false
+    }
+  },
   computed: {
-    isBannerImage: function isBannerImage() {
-      return this.img === "/storage/defaults/images/banner.jpeg";
-    },
     imageSrc: function imageSrc() {
       return this.img.startsWith("/") ? this.img : "/storage/defaults/images/empty_page/" + this.img;
     }
@@ -24596,7 +24591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".podcast-genres-wrapper[data-v-1581d650] {\n  display: flex;\n  overflow-x: auto;\n  overflow-y: hidden;\n  flex-wrap: wrap;\n  max-width: 1500px;\n  padding-bottom: 0.5em;\n}\n.podcast-genres-wrapper[data-v-1581d650]::-webkit-scrollbar {\n  height: 5px;\n  width: 5px;\n}\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n  cursor: pointer;\n  flex-basis: auto;\n  min-width: 244px;\n  max-width: 250px;\n  padding: 0.2em 0.3em;\n  position: relative;\n}\n.podcast-genres-wrapper .podcast-genre .name[data-v-1581d650] {\n  position: absolute;\n  color: white;\n  font-size: 1.1em;\n  font-weight: 600;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n}\n.podcast-genres-wrapper .podcast-genre .cover .podcast-genre-img[data-v-1581d650] {\n  border-radius: 12px;\n}\n.podcast-genres-wrapper .podcast-genre .cover img[data-v-1581d650] {\n  width: 100%;\n}\n@media screen and (max-width: 900px) {\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n    flex-basis: 33.33%;\n    min-width: auto;\n}\n.podcast-genres-wrapper .podcast-genre .podcast-genre-img[data-v-1581d650] {\n    border-radius: 8px;\n}\n}\n@media screen and (max-width: 650px) {\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n    flex-basis: 50%;\n    min-width: auto;\n}\n}", ""]);
+exports.push([module.i, ".podcast-genres-wrapper[data-v-1581d650] {\n  display: flex;\n  direction: rtl;\n  justify-content: flex-start;\n  flex-wrap: wrap;\n  width: 100%;\n  max-width: 1210px;\n  margin-inline: auto;\n  margin-top: 4rem;\n  -moz-column-gap: 9px;\n       column-gap: 9px;\n  row-gap: 56px;\n}\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n  cursor: pointer;\n  flex: 0 0 calc((100% - 36px) / 5);\n  padding: 0;\n  position: relative;\n}\n.podcast-genres-wrapper .podcast-genre .name[data-v-1581d650] {\n  position: absolute;\n  color: white;\n  font-size: clamp(1.1rem, 1.55vw, 1.8rem);\n  font-weight: 700;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center;\n  white-space: nowrap;\n}\n.podcast-genres-wrapper .podcast-genre .cover[data-v-1581d650] {\n  width: 100%;\n  aspect-ratio: 2.5/1;\n  border-radius: 12px;\n  background: linear-gradient(110deg, #ff9418, #ffef4b);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+2) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #ff9418, #10d9e6);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+3) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #f0d8a7, #53e8ec);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+4) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #f3dda6, #f33778);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+5) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #00ed9a, #51e7f0);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+6) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #e48bd8, #5367f7);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+7) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #f03378, #00ed9a);\n}\n.podcast-genres-wrapper .podcast-genre:nth-child(8n+8) .cover[data-v-1581d650] {\n  background: linear-gradient(110deg, #ed3580, #09d9e9);\n}\n@media screen and (max-width: 900px) {\n.podcast-genres-wrapper[data-v-1581d650] {\n    margin-top: 3rem;\n    -moz-column-gap: 12px;\n         column-gap: 12px;\n    row-gap: 24px;\n}\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n    flex-basis: calc((100% - 24px) / 3);\n}\n}\n@media screen and (max-width: 600px) {\n.podcast-genres-wrapper[data-v-1581d650] {\n    margin-top: 2rem;\n}\n.podcast-genres-wrapper .podcast-genre[data-v-1581d650] {\n    flex-basis: calc((100% - 12px) / 2);\n}\n.podcast-genres-wrapper .podcast-genre .name[data-v-1581d650] {\n    font-size: clamp(1rem, 4vw, 1.4rem);\n}\n}", ""]);
 
 // exports
 
@@ -24805,7 +24800,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".container[data-v-5272b50b] {\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 16px;\n}\n.container .wrapper[data-v-5272b50b] {\n  padding: 3em 0;\n}\n.container .img-container[data-v-5272b50b] {\n  display: flex;\n  justify-content: center;\n}\n.container .img-container img[data-v-5272b50b] {\n  max-width: 250px;\n}\n.container .img-container img.banner-image[data-v-5272b50b] {\n  width: auto;\n  height: auto;\n  max-width: none;\n}\n.container .headline[data-v-5272b50b] {\n  font-weight: 600;\n  font-size: 1.3em;\n  margin-bottom: 0.5em;\n}\n.container .sub[data-v-5272b50b] {\n  font-size: 0.9em;\n  font-weight: 400;\n  max-width: 30em;\n}\n.container .button-container[data-v-5272b50b] {\n  margin-top: 1em;\n}", ""]);
+exports.push([module.i, ".container[data-v-5272b50b] {\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 16px;\n}\n.container .wrapper[data-v-5272b50b] {\n  padding: 3em 0;\n}\n.container .img-container[data-v-5272b50b] {\n  display: flex;\n  justify-content: center;\n}\n.container .img-container img[data-v-5272b50b] {\n  max-width: 250px;\n}\n.container .img-container img.natural-image[data-v-5272b50b] {\n  width: auto;\n  height: auto;\n  max-width: none;\n}\n.container .headline[data-v-5272b50b] {\n  font-weight: 600;\n  font-size: 1.3em;\n  margin-bottom: 0.5em;\n}\n.container .sub[data-v-5272b50b] {\n  font-size: 0.9em;\n  font-weight: 400;\n  max-width: 30em;\n}\n.container .button-container[data-v-5272b50b] {\n  margin-top: 1em;\n}", ""]);
 
 // exports
 
@@ -73663,44 +73658,7 @@ var render = function() {
           }
         },
         [
-          _c(
-            "div",
-            { staticClass: "cover" },
-            [
-              _c("v-img", {
-                staticClass: "img podcast-genre-img",
-                attrs: { src: genre.cover, "aspect-ratio": "2.5" },
-                scopedSlots: _vm._u(
-                  [
-                    {
-                      key: "placeholder",
-                      fn: function() {
-                        return [
-                          _c(
-                            "div",
-                            { staticClass: "fill-height" },
-                            [
-                              _c(
-                                "content-placeholders",
-                                { attrs: { rounded: true } },
-                                [_c("content-placeholders-img")],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ]
-                      },
-                      proxy: true
-                    }
-                  ],
-                  null,
-                  true
-                )
-              })
-            ],
-            1
-          ),
+          _c("div", { staticClass: "cover" }),
           _vm._v(" "),
           _c("div", { staticClass: "name" }, [
             _vm._v("\n            " + _vm._s(_vm.$t(genre.name)) + "\n        ")
@@ -76185,12 +76143,12 @@ var render = function() {
       _vm.img
         ? _c("div", { staticClass: "img-container" }, [
             _c("img", {
-              class: _vm.isBannerImage ? "banner-image d-block" : "",
+              class: { "natural-image": _vm.naturalSize },
               attrs: {
                 src: _vm.imageSrc,
                 alt: "",
-                width: _vm.isBannerImage ? null : 200,
-                height: _vm.isBannerImage ? null : 266
+                width: _vm.naturalSize ? null : 200,
+                height: _vm.naturalSize ? null : 266
               }
             })
           ])
@@ -141533,9 +141491,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PodcastGenres_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PodcastGenres.vue?vue&type=script&lang=js& */ "./resources/js/components/elements/sections/PodcastGenres.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _PodcastGenres_vue_vue_type_style_index_0_id_1581d650_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PodcastGenres.vue?vue&type=style&index=0&id=1581d650&lang=scss&scoped=true& */ "./resources/js/components/elements/sections/PodcastGenres.vue?vue&type=style&index=0&id=1581d650&lang=scss&scoped=true&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../node_modules/vuetify-loader/lib/runtime/installComponents.js */ "./node_modules/vuetify-loader/lib/runtime/installComponents.js");
-/* harmony import */ var _node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuetify/lib/components/VImg */ "./node_modules/vuetify/lib/components/VImg/index.js");
 
 
 
@@ -141554,12 +141509,6 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   null
   
 )
-
-/* vuetify-loader */
-
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VImg: vuetify_lib_components_VImg__WEBPACK_IMPORTED_MODULE_5__["VImg"]})
-
 
 /* hot reload */
 if (false) { var api; }

@@ -65,10 +65,21 @@
                     }
                     &:hover {
                         background-color: rgba(134, 134, 134, 0.212);
+                        border-radius: 8px;
                     }
+                }
+                li + li {
+                    margin-top: 0.35rem;
                 }
                 li.active {
                     background-color: rgba(134, 134, 134, 0.212);
+                    border-radius: 8px;
+                }
+                @media screen and (max-width: 800px) {
+                    li + li {
+                        margin-top: 0;
+                        margin-inline-start: 0.35rem;
+                    }
                 }
             }
         }
@@ -112,6 +123,15 @@
         @media screen and( max-width: 600px) {
             padding: 0em 1em;
         }
+    }
+}
+.local_songs-wrapper > .header .buttons {
+    > *:first-child {
+        margin-right: 0;
+    }
+
+    > * + * {
+        margin-inline-start: 0.5rem;
     }
 }
 .el-container {

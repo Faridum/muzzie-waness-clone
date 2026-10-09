@@ -25,7 +25,8 @@
         <song-list :songs="songs" :options="['like']"></song-list>
         <empty-page
             v-if="songs && !songs.length"
-            img="/storage/defaults/images/banner.jpeg"
+            img="peep-68.png"
+            :natural-size="true"
             :headline="$t('No likes yet!')"
             :sub="$t('This page is empty.')"
         />

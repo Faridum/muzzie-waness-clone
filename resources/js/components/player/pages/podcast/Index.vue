@@ -1,24 +1,8 @@
 <template>
-    <div class="podcasts-home-wrapper content-page pr-5">
-        <div class="icon-header">
-            <div class="cover">
-                <v-icon dark>$vuetify.icons.microphone</v-icon>
-            </div>
-            <div class="title">
-                <div class="headline">
-                    {{$t('Podcasts')}}
-                </div>
-                <div class="sub">
-                    {{$t('Explore & listen to podcasts')}}
-                </div>
-            </div>
-        </div>
+    <div class="podcasts-home-wrapper content-page">
         <div class="main-contet">
-            <div class="page-title-medium">
-                {{$t('Genres')}}
-            </div>
             <template v-if="genres && popularPodcasts">
-                <podcast-genres :genres="genres" class="pt-5"></podcast-genres>
+                <podcast-genres :genres="genres"></podcast-genres>
                 <div class="section-popular mt-5" v-if="popularPodcasts && popularPodcasts.length">
                     <swiper-section
                         :section="{
@@ -67,14 +51,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.icon-header {
-    .cover {
-        background: linear-gradient(
-            45.34deg,
-            #fbb13c 5.66%,
-            #ff7a72 48.62%,
-            #ff7a72 94.35%
-        );
-    }
+.podcasts-home-wrapper {
+    box-sizing: border-box;
+    padding-inline: clamp(1rem, 3vw, 3rem);
+}
+
+.main-contet {
+    width: 100%;
+    max-width: 1500px;
+    margin-inline: auto;
 }
 </style>

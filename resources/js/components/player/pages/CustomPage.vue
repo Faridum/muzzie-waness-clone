@@ -84,8 +84,9 @@
                         :img="
                             $route.path === '/home'
                                 ? null
-                                : '/storage/defaults/images/banner.jpeg'
+                                : 'peep-68.png'
                         "
+                        :natural-size="true"
                         :headline="$t('No Content!')"
                         :sub="$t('There is no content to be displayed.')"
                     ></empty-page>
