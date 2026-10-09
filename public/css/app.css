@@ -2103,8 +2103,8 @@ hr {
 }
 
 .content-page {
-  padding-top: 3em;
-  padding-bottom: 6em;
+  padding-top: 0em;
+  padding-bottom: 7.5em;
 }
 
 .content-page .icon-header {

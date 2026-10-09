@@ -893,7 +893,7 @@ export default {
     transition: all 0.5s;
     font-size: 1.05rem;
     border-radius: 8px;
-    background-color: rgb(226, 226, 226);
+    background-color:#F7F4EC;
     input {
         border: none;
         font-weight: bold;

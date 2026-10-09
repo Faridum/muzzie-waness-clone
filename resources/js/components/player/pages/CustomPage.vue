@@ -213,7 +213,12 @@ export default {
     transform: translateX(-10.5rem);
 
     .cover {
-        background: linear-gradient(45deg, $color-secondary, $color-primary);
+        background: rgb(234, 71, 95);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 24px rgba(234, 71, 95, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        backdrop-filter: blur(12px) saturate(150%);
     }
 }
 
@@ -221,7 +226,7 @@ export default {
     .icon-header {
         width: calc(100% - 2rem);
         max-width: 1296px;
-        margin: 2.5rem auto 2.8rem;
+        margin: 0rem auto 2.8rem;
         transform: none;
     }
 
@@ -230,7 +235,9 @@ export default {
         max-width: 1296px;
         aspect-ratio: 2.13 / 1;
         margin: 0 auto 2.5rem;
+        border-radius: 20px;
         overflow: hidden;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.45);
 
         img {
             display: block;

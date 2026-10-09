@@ -141,13 +141,41 @@
 
 .home-layout #player-sidebar {
     #sidebar-wrapper {
-        background-color: #f27895 !important;
+        background-color: #efefef !important;
         border: 0;
         box-shadow: none;
     }
 
     .sidebar-item {
         color: #17305d;
+        transition: background-color 180ms ease, box-shadow 180ms ease,
+            color 180ms ease;
+    }
+}
+
+#player-container.player--light #player-sidebar #sidebar-wrapper {
+    background-color: #F7F4EC !important;
+}
+
+#player-sidebar .sidebar-item.v-item--active,
+#player-sidebar .sidebar-item.v-list-item--active {
+    color: #EA475F !important;
+    background-color: rgba(255, 255, 255, 0.24) !important;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    box-shadow: 0 4px 14px rgba(23, 48, 93, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.38);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+
+    &::before {
+        background-color: rgba(255, 255, 255, 0.24) !important;
+        opacity: 1 !important;
+        border-radius: inherit;
+    }
+
+    .v-icon,
+    .v-list-item__title {
+        color: inherit !important;
     }
 }
 

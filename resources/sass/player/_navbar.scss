@@ -226,11 +226,18 @@
     html[dir="rtl"] #navbar.navbar {
         height: 60px;
         padding: 0;
-        background-color: #fbffe9;
         box-shadow: 0 1px 2px rgba(46, 47, 36, 0.12);
 
         .navbar__left-side {
-            position: static;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            right: 24%;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            min-width: 0;
+            transform: translateY(-50%);
         }
 
         .navbar__right-side {
@@ -242,23 +249,23 @@
         }
 
         .searchbar-container {
-            position: absolute;
-            top: 50%;
-            left: 56%;
-            width: 365px;
-            transform: translateY(-50%) !important;
+            position: relative;
+            flex: 1 1 auto;
+            min-width: 0;
+            width: auto;
+            max-width: 365px;
+            transform: none !important;
             opacity: 1 !important;
             pointer-events: auto !important;
         }
 
         .chevrons {
-            position: absolute;
-            top: 50%;
-            left: 79%;
+            position: relative;
+            flex: 0 0 auto;
             flex-direction: row-reverse;
             gap: 0.6rem;
             margin: 0;
-            transform: translateY(-50%);
+            transform: none;
             color: #77766f;
 
             & > div {
@@ -311,7 +318,7 @@
     html[dir="rtl"] #navbar .searchbar {
         height: 32px;
         border-radius: 8px;
-        background-color: #f2aaa8;
+        border: 1px solid #6d6261;
 
         input {
             height: 32px;
@@ -323,6 +330,189 @@
 
         .style-search-icon {
             color: #6d6261;
+        }
+    }
+}
+
+#player-container.player--light #navbar .searchbar {
+    background-color: #F7F4EC;
+}
+
+@media screen and (min-width: 651px) and (max-width: 1100px) {
+    html[dir="rtl"] #navbar.navbar {
+        height: 60px;
+        padding: 0 12px !important;
+        inset-inline-start: 5.5em;
+        inset-inline-end: 0;
+
+        .navbar__left-side {
+            position: static;
+            flex: 1 1 auto;
+            gap: 12px;
+            min-width: 0;
+            transform: none;
+        }
+
+        .navbar__right-side {
+            position: static;
+            flex: 0 0 auto;
+            gap: 6px;
+            transform: none;
+        }
+
+        .search-icon,
+        .logo {
+            display: none;
+        }
+
+        .searchbar-container {
+            position: relative;
+            flex: 1 1 auto;
+            width: clamp(190px, 35vw, 300px);
+            max-width: 300px;
+            min-width: 0;
+            transform: none !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .chevrons {
+            position: static;
+            flex: 0 0 auto;
+            gap: 0.25rem;
+            margin: 0;
+            transform: none;
+        }
+
+        .auth .buttons {
+            gap: 4px;
+
+            .v-btn {
+                height: 32px;
+                min-width: 58px;
+                margin: 0 !important;
+                font-size: 0.8rem;
+            }
+
+            .register__btn {
+                display: inline-flex !important;
+            }
+        }
+    }
+
+    html[dir="rtl"] #navbar .searchbar-wrapper {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    html[dir="rtl"] #navbar.navbar {
+        height: 60px;
+        padding: 0 !important;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        overflow: visible;
+
+        .navbar__left-side,
+        .navbar__right-side {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform: none;
+        }
+
+        .navbar__left-side {
+            pointer-events: none;
+
+            .chevrons {
+                display: none;
+            }
+
+            .logo {
+                position: absolute;
+                top: 50%;
+                right: 16%;
+                display: flex;
+                width: 3em;
+                height: 3em;
+                transform: translateY(-50%);
+                pointer-events: auto;
+            }
+
+            .searchbar-container {
+                z-index: 1001;
+                width: 100%;
+                margin: 0;
+            }
+
+            .searchbar-wrapper {
+                width: calc(100% - 24px);
+                margin: 0 auto;
+            }
+        }
+
+        .navbar__right-side {
+            display: block;
+            pointer-events: none;
+
+            .search-icon,
+            .auth,
+            .user {
+                position: absolute;
+                top: 50%;
+                margin: 0 !important;
+                transform: translateY(-50%);
+                pointer-events: auto;
+            }
+
+            .search-icon {
+                left: 18%;
+                right: auto;
+                display: flex !important;
+                width: 24px;
+                height: 32px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .auth,
+            .user {
+                left: 27%;
+                right: auto;
+            }
+
+            .auth .buttons {
+                gap: 4px;
+
+                .v-btn {
+                    height: 28px;
+                    min-width: 44px;
+                    padding: 0 7px;
+                    margin: 0 !important;
+                    font-size: 0.7rem;
+                }
+
+                .register__btn {
+                    display: inline-flex !important;
+                    min-width: 52px;
+                }
+            }
+
+            .lang-switcher {
+                position: absolute;
+                top: 50%;
+                right: 38px;
+                transform: translateY(-50%);
+            }
+
+            .theme-switch {
+                position: absolute;
+                top: 50%;
+                right: 5px;
+                transform: translateY(-50%);
+            }
         }
     }
 }

@@ -29,6 +29,12 @@
         }
     }
 }
+
+#player-container.player--light {
+    --light-theme-bg-color: #F7F4EC;
+    background-color: #F7F4EC;
+}
+
 .svg-image {
     width: 1em;
 }
