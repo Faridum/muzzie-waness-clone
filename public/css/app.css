@@ -1115,7 +1115,7 @@ input {
   font-size: 1.15rem;
   align-items: center;
   padding: 0.3em 0;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .section-header__title {
