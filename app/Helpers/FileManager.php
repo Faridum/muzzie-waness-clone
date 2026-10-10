@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Exceptions\FEException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Setting;
 use Exception;
@@ -84,8 +85,22 @@ class FileManager
         $final_path = $path . $file_name_slug;
         try {
             ini_set('upload_max_filesize', '500MB');
-            Storage::disk($disk_name)->put($final_path, file_get_contents($file));
-        } catch (Exception $exception) {
+            $stored = Storage::disk($disk_name)->put($final_path, file_get_contents($file));
+            if (!$stored) {
+                throw new \RuntimeException('Storage::put returned false.');
+            }
+        } catch (\Throwable $exception) {
+            Log::error('File storage failed.', [
+                'disk' => $disk_name,
+                'destination' => $final_path,
+                'upload_size_bytes' => method_exists($file, 'getSize') ? $file->getSize() : null,
+                'php_upload_error' => method_exists($file, 'getError') ? $file->getError() : null,
+                'php_upload_error_message' => method_exists($file, 'getErrorMessage') ? $file->getErrorMessage() : null,
+                'upload_is_valid' => method_exists($file, 'isValid') ? $file->isValid() : null,
+                'temporary_file_exists' => method_exists($file, 'getPathname') ? is_file($file->getPathname()) : null,
+                'exception_class' => get_class($exception),
+                'exception_message' => $exception->getMessage(),
+            ]);
             throw new FEException('Some server error occurred. Please try again.', $exception->getMessage(), 500);
         }
         $url = null;

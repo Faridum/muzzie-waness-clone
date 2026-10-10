@@ -228,6 +228,7 @@ export default {
         width: calc(100% - 2rem);
         max-width: 1296px;
         margin: 0rem auto 2.8rem;
+        padding-top: 2.5rem;
         transform: none;
     }
 

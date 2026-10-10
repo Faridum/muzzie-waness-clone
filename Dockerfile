@@ -29,6 +29,7 @@ RUN sed -i \
 
 COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/php/uploads.ini $PHP_INI_DIR/conf.d/uploads.ini
 COPY docker/php/entrypoint.sh /usr/local/bin/muzzie-entrypoint
 RUN chmod +x /usr/local/bin/muzzie-entrypoint
 
