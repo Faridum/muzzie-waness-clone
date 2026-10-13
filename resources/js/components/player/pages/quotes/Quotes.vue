@@ -377,16 +377,19 @@ export default {
 
 .quotes-card__mark {
     position: absolute;
-    bottom: -0.3rem;
-    left: 48px;
+    top: -0.9rem;
+    left: 1.5rem;
     color: #eb455f;
     font-family: Georgia, serif;
-    font-size: 3.7rem;
+    font-size: 2.8rem;
     line-height: 1;
+    pointer-events: none;
+    
 }
 
 .quotes-card__text {
     z-index: 1;
+    width: 100%;
     margin: 0 0 0.75rem;
     font-size: 1rem;
     font-weight: 600;
@@ -488,8 +491,9 @@ export default {
     }
 
     .quotes-card__mark {
-        left: 14px;
-        font-size: 3rem;
+        top: -0.7rem;
+        left: 0.8rem;
+        font-size: 2.3rem;
     }
 
     .quotes-card__play {
