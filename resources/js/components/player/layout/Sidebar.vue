@@ -54,6 +54,22 @@
                                 ></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
+                        <v-list-item
+                            v-if="item.path === '/podcasts' && item.visibility"
+                            :key="'quotes-after-podcasts'"
+                            to="/quotes"
+                            link
+                            class="sidebar-item"
+                        >
+                            <div>
+                                <v-icon>$vuetify.icons.textBox-multiple</v-icon>
+                            </div>
+                            <v-list-item-content>
+                                <v-list-item-title
+                                    v-text="$t('Quotes')"
+                                ></v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
                     </template>
                 </v-list-item-group>
             </v-list>

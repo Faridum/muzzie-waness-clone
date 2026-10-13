@@ -665,6 +665,12 @@ const router = new VueRouter({
                                 podcastRelated: true
                             }
                         },
+
+                        {
+                            path: "quotes",
+                            redirect: "/quotes"
+                        },
+
                         {
                             path: "albums",
                             component: () =>
@@ -674,6 +680,14 @@ const router = new VueRouter({
                             name: "library.albums"
                         }
                     ]
+                },
+                {
+                    path: "/quotes",
+                    component: () =>
+                        import(
+                            /* webpackChunkName: "quotes" */ "./components/player/pages/quotes/Quotes.vue"
+                        ),
+                    name: "quotes"
                 },
                 {
                     path: "*",
