@@ -13,222 +13,193 @@
 
 // If the loader is already loaded, just stop.
 if (!self.define) {
-  const singleRequire = name => {
-    if (name !== 'require') {
-      name = name + '.js';
-    }
-    let promise = Promise.resolve();
-    if (!registry[name]) {
+  let registry = {};
+
+  // Used for `eval` and `importScripts` where we can't get script URL by other means.
+  // In both cases, it's safe to use a global var because those functions are synchronous.
+  let nextDefineUri;
+
+  const singleRequire = (uri, parentUri) => {
+    uri = new URL(uri + ".js", parentUri).href;
+    return registry[uri] || (
       
-        promise = new Promise(async resolve => {
+        new Promise(resolve => {
           if ("document" in self) {
             const script = document.createElement("script");
-            script.src = name;
-            document.head.appendChild(script);
+            script.src = uri;
             script.onload = resolve;
+            document.head.appendChild(script);
           } else {
-            importScripts(name);
+            nextDefineUri = uri;
+            importScripts(uri);
             resolve();
           }
-        });
+        })
       
-    }
-    return promise.then(() => {
-      if (!registry[name]) {
-        throw new Error(`Module ${name} didn’t register its module`);
-      }
-      return registry[name];
-    });
+      .then(() => {
+        let promise = registry[uri];
+        if (!promise) {
+          throw new Error(`Module ${uri} didn’t register its module`);
+        }
+        return promise;
+      })
+    );
   };
 
-  const require = (names, resolve) => {
-    Promise.all(names.map(singleRequire))
-      .then(modules => resolve(modules.length === 1 ? modules[0] : modules));
-  };
-  
-  const registry = {
-    require: Promise.resolve(require)
-  };
-
-  self.define = (moduleName, depsNames, factory) => {
-    if (registry[moduleName]) {
+  self.define = (depsNames, factory) => {
+    const uri = nextDefineUri || ("document" in self ? document.currentScript.src : "") || location.href;
+    if (registry[uri]) {
       // Module is already loading or loaded.
       return;
     }
-    registry[moduleName] = Promise.resolve().then(() => {
-      let exports = {};
-      const module = {
-        uri: location.origin + moduleName.slice(1)
-      };
-      return Promise.all(
-        depsNames.map(depName => {
-          switch(depName) {
-            case "exports":
-              return exports;
-            case "module":
-              return module;
-            default:
-              return singleRequire(depName);
-          }
-        })
-      ).then(deps => {
-        const facValue = factory(...deps);
-        if(!exports.default) {
-          exports.default = facValue;
-        }
-        return exports;
-      });
+    let exports = {};
+    const require = depUri => singleRequire(depUri, uri);
+    const specialDeps = {
+      module: { uri },
+      exports,
+      require
+    };
+    registry[uri] = Promise.all(depsNames.map(
+      depName => specialDeps[depName] || require(depName)
+    )).then(deps => {
+      factory(...deps);
+      return exports;
     });
   };
 }
-define("./service-worker.js",['./workbox-903cc191'], function (workbox) { 'use strict';
-
-  /**
-  * Welcome to your Workbox-powered service worker!
-  *
-  * You'll need to register this file in your web app.
-  * See https://goo.gl/nhQhGp
-  *
-  * The rest of the code is auto-generated. Please don't update this file
-  * directly; instead, make changes to your Workbox build configuration
-  * and re-run your build process.
-  * See https://goo.gl/2aRDsh
-  */
+define(['./workbox-270e9e46'], (function (workbox) { 'use strict';
 
   self.addEventListener('message', event => {
     if (event.data && event.data.type === 'SKIP_WAITING') {
       self.skipWaiting();
     }
   });
+
   /**
    * The precacheAndRoute() method efficiently caches and responds to
    * requests for URLs in the manifest.
    * See https://goo.gl/S9QRab
    */
-
   workbox.precacheAndRoute([{
     "url": "//css/app.css",
-    "revision": "421b23ac24c24438b421718914de4f05"
+    "revision": "a76ca886d36759a480bd1dd4870fa225"
   }, {
     "url": "//installer/css/app.css",
-    "revision": "fd1a5edb7162c9d582143cebe1bcd7ef"
+    "revision": "f66d5bbf552af1ea3260d987e379999f"
   }, {
     "url": "//installer/js/app.js",
-    "revision": "6c9971110ad9564e067f4fe818d90e88"
+    "revision": "b7c3cedffe42297cd30715a3be4f8bf1"
   }, {
     "url": "//js/app.js",
-    "revision": "b07acb252797196358ffdc2b93bd5e34"
+    "revision": "2352425f542b7f3dd9f24c6dd94b98a7"
   }, {
-    "url": "/images/background.svg?8e388eefc37c10a2bc4c52cfbc043fa3",
-    "revision": "8e388eefc37c10a2bc4c52cfbc043fa3"
+    "url": "/images/background.svg?d41d8cd98f00b204e9800998ecf8427e",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   }, {
-    "url": "/js/chunks/09c6f24e9fd62aca6c1e.js",
+    "url": "/js/chunks/020cb7472ba258865196.js",
     "revision": null
   }, {
-    "url": "/js/chunks/147db08c7fb8bb3b5d57.js",
+    "url": "/js/chunks/1b5b065344e919ff66ab.js",
     "revision": null
   }, {
-    "url": "/js/chunks/19b4905df72673583cb1.js",
+    "url": "/js/chunks/1b88d147942c96718cf7.js",
+    "revision": null
+  }, {
+    "url": "/js/chunks/1f7fa6a674db9f521f95.js",
     "revision": null
   }, {
     "url": "/js/chunks/20520b14338b5afdaca5.js",
     "revision": null
   }, {
-    "url": "/js/chunks/2be470b8d3299efd50e2.js",
+    "url": "/js/chunks/28f6eb8231cf5d1e19a5.js",
     "revision": null
   }, {
-    "url": "/js/chunks/330d7eee70c3abbf96d8.js",
+    "url": "/js/chunks/29a101569d1983a51592.js",
     "revision": null
   }, {
-    "url": "/js/chunks/35b5920f2c2ad133899c.js",
+    "url": "/js/chunks/2a6a4da9a352aa03dd8b.js",
     "revision": null
   }, {
-    "url": "/js/chunks/39fcfd4e8f91d1ac5218.js",
+    "url": "/js/chunks/31a5fa8692bf3f03a659.js",
     "revision": null
   }, {
-    "url": "/js/chunks/3b00706cebd079ed17e1.js",
+    "url": "/js/chunks/423aa41f51c771c897b5.js",
     "revision": null
   }, {
-    "url": "/js/chunks/3bd0a2ac0df5186decfe.js",
+    "url": "/js/chunks/49671b944b3a6842bbf5.js",
     "revision": null
   }, {
-    "url": "/js/chunks/3bf8b71530a578c617f9.js",
+    "url": "/js/chunks/565a29ac1e0049c7a15e.js",
     "revision": null
   }, {
-    "url": "/js/chunks/50e798fa0b17ea15eda8.js",
+    "url": "/js/chunks/5cb522ce1a74e2e9f666.js",
     "revision": null
   }, {
-    "url": "/js/chunks/531337aa4a2860fe1021.js",
+    "url": "/js/chunks/5e5e45c8d4d900e9d17c.js",
     "revision": null
   }, {
-    "url": "/js/chunks/587f773ede74f9e4c5da.js",
+    "url": "/js/chunks/60bf6b008cf938892490.js",
     "revision": null
   }, {
-    "url": "/js/chunks/6d83153e23389d15c8cb.js",
+    "url": "/js/chunks/6a5c5c637dd1ebd82498.js",
     "revision": null
   }, {
-    "url": "/js/chunks/7accb7a6d226c0d30de6.js",
+    "url": "/js/chunks/70ef24eafe660bbaf162.js",
     "revision": null
   }, {
-    "url": "/js/chunks/7bd917c6551aa0b87317.js",
+    "url": "/js/chunks/736ef25cd71fcfde3733.js",
     "revision": null
   }, {
-    "url": "/js/chunks/854faf8796a6a0e2b3fa.js",
+    "url": "/js/chunks/888b398e126a91186373.js",
     "revision": null
   }, {
-    "url": "/js/chunks/8885f8ec499ca0bde20a.js",
+    "url": "/js/chunks/9a8fc121120fc62587ac.js",
     "revision": null
   }, {
-    "url": "/js/chunks/8ce103c62b1cd5b84ffa.js",
+    "url": "/js/chunks/9bfce239148b335872d5.js",
     "revision": null
   }, {
-    "url": "/js/chunks/8d33ac00f08c8f23534e.js",
+    "url": "/js/chunks/9f1e5961323a8a2983bc.js",
     "revision": null
   }, {
-    "url": "/js/chunks/8e19a0feaf98e5ec5a16.js",
+    "url": "/js/chunks/a60681ca0a536266cf9b.js",
     "revision": null
   }, {
-    "url": "/js/chunks/93f2bb5ec1c6328c0534.js",
+    "url": "/js/chunks/a6fe46daca196c940bc9.js",
     "revision": null
   }, {
-    "url": "/js/chunks/b25b4787038390a78933.js",
+    "url": "/js/chunks/aa6aa0af4636bc415559.js",
     "revision": null
   }, {
-    "url": "/js/chunks/b92573ce27d50efeea7f.js",
+    "url": "/js/chunks/acc28355d9ca4aee9ba9.js",
     "revision": null
   }, {
-    "url": "/js/chunks/bc4c27af51160a6e1da6.js",
+    "url": "/js/chunks/af53c3b56426dd916510.js",
     "revision": null
   }, {
-    "url": "/js/chunks/be0f6396aca14e7eb7ff.js",
+    "url": "/js/chunks/b2b583ce8ddcc376c1dd.js",
     "revision": null
   }, {
-    "url": "/js/chunks/bf069a1710c22bf89f45.js",
+    "url": "/js/chunks/b4b35bd46870e5ec707e.js",
     "revision": null
   }, {
-    "url": "/js/chunks/d61c78d996f943c61f3c.js",
+    "url": "/js/chunks/c3f8eaf34a1f092d2aab.js",
     "revision": null
   }, {
-    "url": "/js/chunks/dfd5bc00c25114e559fc.js",
+    "url": "/js/chunks/c40b74bfb186b4cb0855.js",
     "revision": null
   }, {
-    "url": "/js/chunks/e08caaf87c9499b34db3.js",
+    "url": "/js/chunks/caa9233f9e21078c50c6.js",
     "revision": null
   }, {
-    "url": "/js/chunks/e9203180144362ec1b98.js",
+    "url": "/js/chunks/e10de7cf031f87db002a.js",
     "revision": null
   }, {
-    "url": "/js/chunks/eaab423876ac9ce28331.js",
-    "revision": null
-  }, {
-    "url": "/js/chunks/efd039409cc0facbfa4e.js",
-    "revision": null
-  }, {
-    "url": "/js/chunks/f700df51da00ec3d6359.js",
+    "url": "/js/chunks/e9f5e9a5b848eb74e3da.js",
     "revision": null
   }, {
     "url": "/js/chunks/fb3a1a8981552e73ad82.js",
     "revision": null
   }], {});
 
-});
+}));
