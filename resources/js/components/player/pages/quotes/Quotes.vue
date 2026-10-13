@@ -51,6 +51,28 @@
                 </div>
             </div>
         </section>
+
+        <section class="quotes-cards" :aria-label="$t('Quotes')">
+            <article
+                v-for="quote in quotes"
+                :key="quote.author"
+                class="quotes-card"
+            >
+                <div class="quotes-card__cover">
+                    <img :src="quote.cover" :alt="quote.author" loading="lazy" />
+                </div>
+                <div class="quotes-card__content">
+                    <span class="quotes-card__mark" aria-hidden="true">“</span>
+                    <p class="quotes-card__text">{{ quote.text }}</p>
+                    <p class="quotes-card__author">{{ quote.author }}</p>
+                    <span class="quotes-card__category">{{ quote.category }}</span>
+                    <button class="quotes-card__play" type="button" disabled>
+                        <v-icon left>$vuetify.icons.play</v-icon>
+                        {{ $t('Play') }}
+                    </button>
+                </div>
+            </article>
+        </section>
     </div>
 </template>
 
@@ -71,7 +93,51 @@ export default {
                 "83410540waness-quotes-7-02.jpg"
             ].map(filename => ({
                 src: "/images/quotes/" + filename
-            }))
+            })),
+            quotes: [
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/471335582-gdy.png",
+                    text: "الحياة ليست في الأشياء التي نمتلكها، بل في القصص التي نرويها عن تلك الأشياء.",
+                    author: "شرمين يشار",
+                    category: "كتب"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/1810695164-kma-ahb-an-ahkyh-l-aolady-1.png",
+                    text: "المرأة كانت دائمًا شريكًا أساسيًا في بناء الحضارات وإحداث التغيير.",
+                    author: "خالد عماره",
+                    category: "المجتمع"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/85395613-oahl-alsodan-2.png",
+                    text: "السودان ليس مجرد مكان على الخريطة، بل هو قصة طويلة مليئة بالتفاصيل والعبر.",
+                    author: "يوسف الشريف",
+                    category: "الوطن"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/901620732.png",
+                    text: "حين نغادر الأماكن نترك جزءًا منا فيها ونأخذ منها جزءًا، لنصبح خليطًا لا ينتمي لأي مكان بالكامل.",
+                    author: "حمور زيادة",
+                    category: "الأماكن"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/1060540112-aldkyk-aloahd.png",
+                    text: "إذا كنت ترغب في أن يشتري الناس منك، ففكر في كيف تجعل حياتهم أفضل، وليس فقط كيف تبيع لهم منتجك.",
+                    author: "سبنسر جونسون",
+                    category: "تطوير الذات"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/1901886121-tshaar-bh-ymknk-aalagh.png",
+                    text: "عندما تسمح لنفسك بالشعور بما تحمله في داخلك تبدأ عملية الشفاء؛ الألم ليس النهاية، بل هو بداية التحول.",
+                    author: "جون جراي",
+                    category: "الصحة النفسية"
+                },
+                {
+                    cover: "https://waness.net/storage/covers/podcasts/55196831484909-roay-thlathy-ghrnat.jpg",
+                    text: "لا أحد يعرف متى يترك مكانه، ولا يعرف أن عليه أن يتركه حتى يتركه!",
+                    author: "رضوى عاشور",
+                    category: "الأدب"
+                }
+            ]
         };
     },
     computed: {
@@ -260,6 +326,105 @@ export default {
     transform: translateX(-50%);
 }
 
+.quotes-cards {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2rem);
+    max-width: 1296px;
+    margin: 0 auto 4rem;
+}
+
+.quotes-card {
+    display: flex;
+    min-height: 200px;
+    position: relative;
+    border: 1px solid rgba(43, 52, 103, 0.06);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(43, 52, 103, 0.035);
+    margin-bottom: 0.5rem;
+}
+
+.quotes-card__cover {
+    flex: 0 0 104px;
+    width: 104px;
+    height: 104px;
+    align-self: flex-start;
+    margin: 32px 24px;
+    overflow: hidden;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #f4f0df;
+    box-shadow: 0 2px 10px rgba(43, 52, 103, 0.12);
+}
+
+.quotes-card__cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quotes-card__content {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.75rem 0.5rem 1.5rem;
+    color: #2b3467;
+    text-align: start;
+}
+
+.quotes-card__mark {
+    position: absolute;
+    bottom: -0.3rem;
+    left: 48px;
+    color: #eb455f;
+    font-family: Georgia, serif;
+    font-size: 3.7rem;
+    line-height: 1;
+}
+
+.quotes-card__text {
+    z-index: 1;
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.quotes-card__author {
+    margin: 0 0 0.2rem;
+    color: #111;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.quotes-card__category {
+    margin-bottom: 0.55rem;
+    color: #eb455f;
+    font-size: 0.85rem;
+}
+
+.quotes-card__play {
+    display: inline-flex;
+    align-items: center;
+    min-width: 120px;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    color: #202020;
+    background: #eb455f;
+    font: inherit;
+    box-shadow: 0 3px 8px rgba(43, 52, 103, 0.2);
+}
+
+.quotes-card__play:disabled {
+    cursor: not-allowed;
+    opacity: 1;
+}
+
 .quotes-slide-fade-enter-active,
 .quotes-slide-fade-leave-active {
     transition: opacity 220ms ease;
@@ -301,6 +466,35 @@ export default {
     .quotes-slider__timeline {
         bottom: 4%;
         width: min(250px, 60%);
+    }
+
+    .quotes-card {
+        min-height: 190px;
+    }
+
+    .quotes-card__cover {
+        flex: 0 0 72px;
+        width: 72px;
+        height: 72px;
+        margin: 24px 12px;
+    }
+
+    .quotes-card__content {
+        padding: 1.25rem 0.35rem;
+    }
+
+    .quotes-card__text {
+        font-size: 0.92rem;
+    }
+
+    .quotes-card__mark {
+        left: 14px;
+        font-size: 3rem;
+    }
+
+    .quotes-card__play {
+        min-width: 105px;
+        padding: 0.4rem 0.75rem;
     }
 }
 </style>
