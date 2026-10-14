@@ -52,10 +52,17 @@
             </div>
         </section>
 
-        <section class="quotes-cards" :aria-label="$t('Quotes')">
+        <div v-if="quotesLoading" class="quotes-state">
+            <v-progress-circular indeterminate color="primary" />
+        </div>
+        <div v-else-if="!quotes.length" class="quotes-state">
+            {{ $t('No Content!') }}
+        </div>
+
+        <section v-else class="quotes-cards" :aria-label="$t('Quotes')">
             <article
                 v-for="quote in quotes"
-                :key="quote.author"
+                :key="quote.id"
                 class="quotes-card"
             >
                 <div class="quotes-card__cover">
@@ -66,7 +73,11 @@
                     <p class="quotes-card__text">{{ quote.text }}</p>
                     <p class="quotes-card__author">{{ quote.author }}</p>
                     <span class="quotes-card__category">{{ quote.category }}</span>
-                    <button class="quotes-card__play" type="button" disabled>
+                    <button
+                        class="quotes-card__play"
+                        type="button"
+                        @click="playQuote(quote)"
+                    >
                         <v-icon left>$vuetify.icons.play</v-icon>
                         {{ $t('Play') }}
                     </button>
@@ -94,50 +105,8 @@ export default {
             ].map(filename => ({
                 src: "/images/quotes/" + filename
             })),
-            quotes: [
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/471335582-gdy.png",
-                    text: "الحياة ليست في الأشياء التي نمتلكها، بل في القصص التي نرويها عن تلك الأشياء.",
-                    author: "شرمين يشار",
-                    category: "كتب"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/1810695164-kma-ahb-an-ahkyh-l-aolady-1.png",
-                    text: "المرأة كانت دائمًا شريكًا أساسيًا في بناء الحضارات وإحداث التغيير.",
-                    author: "خالد عماره",
-                    category: "المجتمع"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/85395613-oahl-alsodan-2.png",
-                    text: "السودان ليس مجرد مكان على الخريطة، بل هو قصة طويلة مليئة بالتفاصيل والعبر.",
-                    author: "يوسف الشريف",
-                    category: "الوطن"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/901620732.png",
-                    text: "حين نغادر الأماكن نترك جزءًا منا فيها ونأخذ منها جزءًا، لنصبح خليطًا لا ينتمي لأي مكان بالكامل.",
-                    author: "حمور زيادة",
-                    category: "الأماكن"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/1060540112-aldkyk-aloahd.png",
-                    text: "إذا كنت ترغب في أن يشتري الناس منك، ففكر في كيف تجعل حياتهم أفضل، وليس فقط كيف تبيع لهم منتجك.",
-                    author: "سبنسر جونسون",
-                    category: "تطوير الذات"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/1901886121-tshaar-bh-ymknk-aalagh.png",
-                    text: "عندما تسمح لنفسك بالشعور بما تحمله في داخلك تبدأ عملية الشفاء؛ الألم ليس النهاية، بل هو بداية التحول.",
-                    author: "جون جراي",
-                    category: "الصحة النفسية"
-                },
-                {
-                    cover: "https://waness.net/storage/covers/podcasts/55196831484909-roay-thlathy-ghrnat.jpg",
-                    text: "لا أحد يعرف متى يترك مكانه، ولا يعرف أن عليه أن يتركه حتى يتركه!",
-                    author: "رضوى عاشور",
-                    category: "الأدب"
-                }
-            ]
+            quotes: [],
+            quotesLoading: true
         };
     },
     computed: {
@@ -148,10 +117,79 @@ export default {
     mounted() {
         this.startAutoplay();
     },
+    created() {
+        this.fetchQuotes();
+    },
     beforeDestroy() {
         window.clearInterval(this.autoplayTimer);
     },
     methods: {
+        async fetchQuotes() {
+            this.quotesLoading = true;
+            try {
+                const pageResponse = await axios.get(
+                    "/api/page?path=" + encodeURIComponent("/quotes")
+                );
+                const sections = pageResponse.data.sections || [];
+                const sectionResponses = await Promise.all(
+                    sections.map(section =>
+                        axios.get("/api/section/content/" + section.id)
+                    )
+                );
+                const seen = {};
+                this.quotes = sectionResponses
+                    .reduce((songs, response) => {
+                        const sectionSongs = Array.isArray(response.data)
+                            ? response.data
+                            : [];
+                        return songs.concat(sectionSongs);
+                    }, [])
+                    .filter(song => {
+                        if (
+                            song.type !== "song" ||
+                            !song.quote ||
+                            seen[song.id]
+                        ) {
+                            return false;
+                        }
+                        seen[song.id] = true;
+                        return true;
+                    })
+                    .map(song => {
+                        const artists = Array.isArray(song.artists)
+                            ? song.artists
+                                  .map(artist => artist.displayname)
+                                  .filter(Boolean)
+                            : [];
+                        const genres = Array.isArray(song.genres)
+                            ? song.genres
+                                  .map(genre => genre.name || genre.title)
+                                  .filter(Boolean)
+                            : [];
+                        return {
+                            id: song.id,
+                            song: song,
+                            text: song.quote,
+                            cover: song.cover,
+                            author:
+                                artists.join("، ") ||
+                                (song.artist && song.artist.displayname) ||
+                                song.title,
+                            category: genres.join("، ") || song.title
+                        };
+                    });
+            } catch (error) {
+                this.quotes = [];
+            } finally {
+                this.quotesLoading = false;
+            }
+        },
+        playQuote(quote) {
+            this.$store.dispatch("playSong", {
+                song: quote.song,
+                reset: true
+            });
+        },
         showSlide(index) {
             this.currentIndex = index;
         },
@@ -334,6 +372,15 @@ export default {
     margin: 0 auto 4rem;
 }
 
+.quotes-state {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 2rem);
+    max-width: 1296px;
+    margin: 2rem auto;
+    color: #2b3467;
+}
+
 .quotes-card {
     display: flex;
     min-height: 200px;
@@ -421,11 +468,6 @@ export default {
     background: #eb455f;
     font: inherit;
     box-shadow: 0 3px 8px rgba(43, 52, 103, 0.2);
-}
-
-.quotes-card__play:disabled {
-    cursor: not-allowed;
-    opacity: 1;
 }
 
 .quotes-slide-fade-enter-active,

@@ -84,6 +84,7 @@ class SongController extends Controller
         ini_set('post_max_size', '100MB');
         $request->validate([
             'title' => 'required|max:255|min:1|string',
+            'quote' => 'nullable|string|max:10000',
         ]);
         if( $request->uploaded_by  === 'artist' ) {
             $available_space = auth()->user()->artist->available_disk_space;
@@ -187,6 +188,7 @@ class SongController extends Controller
         }
 
         $song->title = $request->title; 
+        $song->quote = $request->input('quote');
         $song->uploaded_by = $request->uploaded_by;
         $song->public = $request->public;
         $song->user_id = auth()->user()->id;
@@ -272,6 +274,7 @@ class SongController extends Controller
         ini_set('post_max_size', '100MB');
         $request->validate([
             'title' => 'required|max:255',
+            'quote' => 'nullable|string|max:10000',
         ]);
 
         $song = Song::find($id);
@@ -362,6 +365,7 @@ class SongController extends Controller
         }
 
         $song->title = $request->title;
+        $song->quote = $request->input('quote');
         $song->public = $request->public;
         $song->source_format = $request->source_format;
         $song->duration = $request->duration;

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/chunks/" + {"0":"fb3a1a8981552e73ad82","1":"31a5fa8692bf3f03a659","2":"c40b74bfb186b4cb0855","3":"c3f8eaf34a1f092d2aab","4":"aa6aa0af4636bc415559","5":"736ef25cd71fcfde3733","6":"9a8fc121120fc62587ac","7":"70ef24eafe660bbaf162","8":"b4b35bd46870e5ec707e","9":"565a29ac1e0049c7a15e","10":"49671b944b3a6842bbf5","11":"a6fe46daca196c940bc9","12":"1f7fa6a674db9f521f95","13":"e10de7cf031f87db002a","14":"6a5c5c637dd1ebd82498","15":"28f6eb8231cf5d1e19a5","16":"60bf6b008cf938892490","17":"5cb522ce1a74e2e9f666","18":"020cb7472ba258865196","19":"888b398e126a91186373","20":"a60681ca0a536266cf9b","vendors~admin~artist":"20520b14338b5afdaca5","admin~artist~player":"5e5e45c8d4d900e9d17c","admin~artist":"af53c3b56426dd916510","artist":"b2b583ce8ddcc376c1dd","admin~player":"acc28355d9ca4aee9ba9","player":"7011d926189eeaa173e1","auth":"e9f5e9a5b848eb74e3da","browse":"9f1e5961323a8a2983bc","landing":"423aa41f51c771c897b5","library":"29a101569d1983a51592","podcasts":"1b88d147942c96718cf7","quotes":"5b1ca6288e5f46ed3575","subscription":"9bfce239148b335872d5","admin":"caa9233f9e21078c50c6","textEditor":"1b5b065344e919ff66ab"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/chunks/" + {"0":"fb3a1a8981552e73ad82","1":"31a5fa8692bf3f03a659","2":"c40b74bfb186b4cb0855","3":"c3f8eaf34a1f092d2aab","4":"aa6aa0af4636bc415559","5":"736ef25cd71fcfde3733","6":"9a8fc121120fc62587ac","7":"70ef24eafe660bbaf162","8":"b4b35bd46870e5ec707e","9":"565a29ac1e0049c7a15e","10":"49671b944b3a6842bbf5","11":"a6fe46daca196c940bc9","12":"1f7fa6a674db9f521f95","13":"e10de7cf031f87db002a","14":"6a5c5c637dd1ebd82498","15":"28f6eb8231cf5d1e19a5","16":"60bf6b008cf938892490","17":"5cb522ce1a74e2e9f666","18":"020cb7472ba258865196","19":"888b398e126a91186373","20":"a60681ca0a536266cf9b","vendors~admin~artist":"20520b14338b5afdaca5","admin~artist~player":"5e5e45c8d4d900e9d17c","admin~artist":"af53c3b56426dd916510","artist":"b2b583ce8ddcc376c1dd","admin~player":"acc28355d9ca4aee9ba9","player":"7011d926189eeaa173e1","auth":"e9f5e9a5b848eb74e3da","browse":"9f1e5961323a8a2983bc","landing":"423aa41f51c771c897b5","library":"29a101569d1983a51592","podcasts":"1b88d147942c96718cf7","quotes":"893ee173b5817889db10","subscription":"9bfce239148b335872d5","admin":"d2f98a47486726492cbe","textEditor":"1b5b065344e919ff66ab"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -15188,6 +15188,26 @@ var render = function render() {
           attrs: {
             cols: "12"
           }
+        }, [_c("v-textarea", {
+          attrs: {
+            label: _vm.$t("Quotes"),
+            outlined: "",
+            rows: "3",
+            "auto-grow": "",
+            counter: "10000",
+            maxlength: "10000"
+          },
+          model: {
+            value: _vm.editedSong.quote,
+            callback: function callback($$v) {
+              _vm.$set(_vm.editedSong, "quote", $$v);
+            },
+            expression: "editedSong.quote"
+          }
+        })], 1), _vm._v(" "), _c("v-col", {
+          attrs: {
+            cols: "12"
+          }
         }, [_vm.genresComp ? _c("select-genres", {
           attrs: {
             genres: _vm.editedSong.genres
@@ -18739,6 +18759,9 @@ function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r;
   props: ["song", "album_id", "uploader"],
   created: function created() {
     var _this = this;
+    if (typeof this.song.quote === "undefined") {
+      this.$set(this.song, "quote", "");
+    }
     if (this.uploader !== "user") {
       axios.get("/api/prices").then(function (res) {
         _this.previousPrices = _this.previousPrices = res.data;
@@ -18994,6 +19017,7 @@ function _toPrimitive(t, e) { if ("object" != _typeof(t) || !t) return t; var r;
               if (_this8.editedSong.title) {
                 formData.append("title", _this8.editedSong.title);
               }
+              formData.append("quote", _this8.editedSong.quote || "");
 
               // links
               if (_this8.editedSong.spotify_link) {
@@ -140998,6 +141022,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VDataTable */ "./node_modules/vuetify/lib/components/VDataTable/index.js");
 /* harmony import */ var vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VSwitch */ "./node_modules/vuetify/lib/components/VSwitch/index.js");
 /* harmony import */ var vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VTextField */ "./node_modules/vuetify/lib/components/VTextField/index.js");
+/* harmony import */ var vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! vuetify/lib/components/VTextarea */ "./node_modules/vuetify/lib/components/VTextarea/index.js");
 
 
 
@@ -141031,7 +141056,8 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 
 
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_9__["VFileInput"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_12__["VSimpleTable"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_13__["VSwitch"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_14__["VTextField"]})
+
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_4___default()(component, {VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["VBtn"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VCol"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VContainer"],VDialog: vuetify_lib_components_VDialog__WEBPACK_IMPORTED_MODULE_7__["VDialog"],VDivider: vuetify_lib_components_VDivider__WEBPACK_IMPORTED_MODULE_8__["VDivider"],VFileInput: vuetify_lib_components_VFileInput__WEBPACK_IMPORTED_MODULE_9__["VFileInput"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_10__["VIcon"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["VRow"],VSelect: vuetify_lib_components_VSelect__WEBPACK_IMPORTED_MODULE_11__["VSelect"],VSimpleTable: vuetify_lib_components_VDataTable__WEBPACK_IMPORTED_MODULE_12__["VSimpleTable"],VSwitch: vuetify_lib_components_VSwitch__WEBPACK_IMPORTED_MODULE_13__["VSwitch"],VTextField: vuetify_lib_components_VTextField__WEBPACK_IMPORTED_MODULE_14__["VTextField"],VTextarea: vuetify_lib_components_VTextarea__WEBPACK_IMPORTED_MODULE_15__["VTextarea"]})
 
 
 /* hot reload */

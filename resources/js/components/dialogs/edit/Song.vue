@@ -174,6 +174,17 @@
                     v-model="editedSong.title"
                   ></v-text-field>
                 </v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    :label="$t('Quotes')"
+                    outlined
+                    rows="3"
+                    auto-grow
+                    counter="10000"
+                    maxlength="10000"
+                    v-model="editedSong.quote"
+                  ></v-textarea>
+                </v-col>
                 <!-- <v-row justify="center">
                                 <v-col cols="6" sm="8">
                                     <v-text-field
@@ -434,6 +445,9 @@ export default {
   mixins: [BillingMixin],
   props: ["song", "album_id", "uploader"],
   created() {
+    if (typeof this.song.quote === "undefined") {
+      this.$set(this.song, "quote", "");
+    }
     if (this.uploader !== "user") {
       axios.get("/api/prices").then((res) => {
         this.previousPrices = this.previousPrices = res.data;
@@ -714,6 +728,7 @@ export default {
       if (this.editedSong.title) {
         formData.append("title", this.editedSong.title);
       }
+      formData.append("quote", this.editedSong.quote || "");
 
       // links
       if (this.editedSong.spotify_link) {

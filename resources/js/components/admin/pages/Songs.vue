@@ -78,6 +78,11 @@
                         {{ item.title }}
                     </router-link>
                 </template>
+                <template v-slot:item.quote="{ item }">
+                    <span class="song-quote-cell" :title="item.quote || ''">
+                        {{ item.quote || "-" }}
+                    </span>
+                </template>
                 <template v-slot:item.operations="{ item }">
                     <v-btn
                         class="mx-2"
@@ -186,6 +191,7 @@ export default {
                     value: "cover"
                 },
                 { text: this.$t("Title"), value: "title" },
+                { text: this.$t("Quotes"), value: "quote" },
                 {
                     text: this.$t("Artist") + "(" + this.$t("Account") + ")",
                     value: "artist",
@@ -345,3 +351,13 @@ export default {
     }
 };
 </script>
+<style>
+.song-quote-cell {
+    display: -webkit-box;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+</style>

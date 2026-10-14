@@ -49,6 +49,13 @@
                 >
                     <template v-if="asset.type === 'song'">
                         <song-expo :song="asset" />
+                        <div
+                            v-if="asset.quote"
+                            class="admin-song-quote-preview"
+                            :title="asset.quote"
+                        >
+                            {{ asset.quote }}
+                        </div>
                     </template>
                     <template v-else-if="asset.type === 'album'">
                         <album-expo :album="asset" />
@@ -158,5 +165,16 @@ export default {
 .empty-section-text {
     font-size: 1.2em;
     padding: 0.2em;
+}
+.admin-song-quote-preview {
+    display: -webkit-box;
+    max-width: 220px;
+    margin: 0.4rem auto 0;
+    overflow: hidden;
+    color: #2b3467;
+    font-size: 0.8rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 </style>
