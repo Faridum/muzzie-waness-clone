@@ -16,6 +16,7 @@ class Episode extends Model
     {
         return $this->belongsTo('App\Podcast');
     }
+    // define the relationship between episode and play
     public function plays()
     {
         return $this->hasMany('App\Play', 'content_id')->where('plays.content_type', '=', 'episode');

@@ -28,8 +28,14 @@ class EpisodeResource extends JsonResource
             'podcast' => $this->podcast,
             'file_size' => $this->file_size,
             'file_name' => $this->file_name,
-            'nb_likes' => $this->likes->count(),            
-            'nb_plays' => $this->plays->count(),  
+            // for each episode, fetch the number of likes to change it into a json response
+            //'nb_likes' => $this->likes->count(), 
+            'nb_likes' => $this->likes_count,
+            
+            // for each episode, fetch the number of plays and downloads to change it into a json response           
+            //'nb_plays' => $this->plays->count(),  
+            'nb_plays' => $this->plays_count,
+            
             'nb_downloads' => $this->download_count,          
             $this->mergeWhen( \Auth::user() && (\Auth::user()->isAdmin() || \Auth::user()->is('artist')), [
                 'created_at' => $this->created_at,
